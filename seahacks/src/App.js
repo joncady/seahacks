@@ -55,7 +55,7 @@ export default class App extends React.Component {
         let {latitude: lat, longitude: lng} = position.coords;
         let {distance} = this.state;
         let geoHash = geohash.encode(lat, lng, 7);
-        let url = `https://app.ticketmaster.com/discovery/v2/venues?apikey=cbPyuGXG7tj9nDEnQTaj1ptfM0HakPA5&locale=*&geoPoint=${geoHash}`;
+        let url = `https://app.ticketmaster.com/discovery/v2/venues?apikey=<apikey>&locale=*&geoPoint=${geoHash}`;
         if (distance !== "") {
             url += `&radius=${distance}&unit=miles`;
         }
@@ -71,7 +71,7 @@ export default class App extends React.Component {
 
     fetchEvents = (id, name) => {
         let {startDate, endDate} = this.state;
-        let url = `https://app.ticketmaster.com/discovery/v2/events?apikey=cbPyuGXG7tj9nDEnQTaj1ptfM0HakPA5&venueId=${id}&locale=*`;
+        let url = `https://app.ticketmaster.com/discovery/v2/events?apikey=<apikey>&venueId=${id}&locale=*`;
         if (startDate && endDate) {
             url += `&startDateTime=${startDate.format('YYYY-MM-DDTHH:mm:ssZ')}&endDateTime=${endDate.format('YYYY-MM-DDTHH:mm:ssZ')}`;
         }
@@ -97,7 +97,7 @@ export default class App extends React.Component {
     };
 
     fetchArtist = (id) => {
-        fetch(`https://app.ticketmaster.com/discovery/v2/events?apikey=cbPyuGXG7tj9nDEnQTaj1ptfM0HakPA5&id=${id}`)
+        fetch(`https://app.ticketmaster.com/discovery/v2/events?apikey=<apikey>&id=${id}`)
             .then(response => response.json())
             .then(data => this.setState({selectedEventArtist: data._embedded.attractions[0].name}));
 
